@@ -5,13 +5,7 @@ package com.betrybe.sistemadevotacao;
  */
 public class PessoaCandidata extends Pessoa {
 
-  /**
-   * The Numero.
-   */
   int numero;
-  /**
-   * The Votos.
-   */
   int votos;
 
   /**
@@ -26,36 +20,18 @@ public class PessoaCandidata extends Pessoa {
     this.votos = 0;
   }
 
-  /**
-   * Gets numero.
-   *
-   * @return the numero
-   */
   public int getNumero() {
     return numero;
   }
 
-  /**
-   * Gets votos.
-   *
-   * @return the votos
-   */
   public int getVotos() {
     return votos;
   }
 
-  /**
-   * Sets numero.
-   *
-   * @param numero the numero
-   */
   public void setNumero(int numero) {
     this.numero = numero;
   }
 
-  /**
-   * Receber voto.
-   */
   public void receberVoto() {
     this.votos++;
   }
