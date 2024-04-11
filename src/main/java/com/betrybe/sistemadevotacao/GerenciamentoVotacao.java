@@ -30,6 +30,7 @@ public class GerenciamentoVotacao implements GerenciamentoVotacaoInterface {
         .stream()
         .anyMatch(pessoaEleitora -> pessoaEleitora.getCpf().equals(cpf))) {
       System.out.println("Pessoa eleitora já cadastrada!");
+      return;
     }
 
     PessoaEleitora pessoaEleitora = new PessoaEleitora(nome, cpf);
@@ -38,11 +39,37 @@ public class GerenciamentoVotacao implements GerenciamentoVotacaoInterface {
 
   @Override
   public void votar(String cpfPessoaEleitora, int numeroPessoaCandidata) {
+    if (cpfsComputados.contains(cpfPessoaEleitora)) {
+      System.out.println("Pessoa eleitora já votou!");
+      return;
+    }
+
+    for (PessoaCandidata candidato : pessoasCandidatas) {
+      if (candidato.getNumero() == numeroPessoaCandidata) {
+        candidato.receberVoto();
+        break;
+      }
+    }
+
+    cpfsComputados.add(cpfPessoaEleitora);
 
   }
 
   @Override
   public void mostrarResultado() {
-
+    if (cpfsComputados.isEmpty()) {
+      System.out.println("É preciso ter pelo menos um voto para mostrar o resultado.");
+      return;
+    }
+    int totalVotos = cpfsComputados.size();
+    for (PessoaCandidata candidato : pessoasCandidatas) {
+      int votosCandidato = candidato.getVotos();
+      double porcentagem = (votosCandidato * 100.0) / totalVotos;
+      long porcentagemRound = Math.round(porcentagem);
+      System.out.println("Nome: " + candidato.getNome()
+          + " - " + candidato.getVotos()
+          + " votos ( " + porcentagemRound + "% )");
+    }
+    System.out.println("Total de votos: " + totalVotos);
   }
 }
